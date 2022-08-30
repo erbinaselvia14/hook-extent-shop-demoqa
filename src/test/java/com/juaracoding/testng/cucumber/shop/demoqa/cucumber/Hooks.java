@@ -10,7 +10,7 @@ import io.cucumber.java.Before;
 
 public class Hooks {
 
-	public static WebDriver driver;
+public static WebDriver driver;
 	
 	@Before
 	public void setup() {
