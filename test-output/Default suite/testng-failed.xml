@@ -6,7 +6,7 @@
       <class name="com.juaracoding.testng.cucumber.shop.demoqa.cucumber.TestRunner">
         <methods>
           <include name="setUpClass"/>
-          <include name="runScenario" invocation-numbers="0"/>
+          <include name="runScenario" invocation-numbers="1"/>
           <include name="tearDownClass"/>
         </methods>
       </class> <!-- com.juaracoding.testng.cucumber.shop.demoqa.cucumber.TestRunner -->
