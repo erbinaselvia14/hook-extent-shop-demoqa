@@ -17,21 +17,15 @@ import io.cucumber.java.en.When;
 public class TestLogin {
 
 	public static WebDriver driver;
-	private LoginPage loginPage;
+	private LoginPage loginPage = new LoginPage();
 	
-	@Before
-	public void setUp() {
-		DriverSingleton.getInstance(Constants.CHROME);
-		loginPage = new LoginPage();
-	}
-
-	@Given("user go to login page")
+	@When("user go to login page")
 	public void user_go_to_login_page() {
 		driver=DriverSingleton.getDriver();
 		driver.get(Constants.LOGINURL);
 	}
 	
-	@When("user enter username and password")
+	@And("user enter username and password")
 	public void user_enter_username_and_password() {
 		scroll(500);
 		loginPage.login("selvia14", "Erbina@14");
@@ -46,20 +40,6 @@ public class TestLogin {
 	public void go_to_page_valid_login() {
 		scroll(400);
 		System.out.println(loginPage.validasiLogin());
-	}
-	
-	@After
-	public void closeBrowser() {
-		delay(1);
-		DriverSingleton.closeObjectInstance();
-	}
-	
-	static void delay(int detik) {
-		try {
-			Thread.sleep(1000*detik);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
 	}
 	
 	static void scroll(int vertical) {

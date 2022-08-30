@@ -19,26 +19,18 @@ import io.cucumber.java.en.When;
 public class TestCheckout {
 
 	public static WebDriver driver;
-	private LoginPage loginPage;
-	private SearchPage searchPage;
-	private PlaceOrderPage placeOrderPage;
+	private LoginPage loginPage = new LoginPage();
+	private SearchPage searchPage = new SearchPage();
+	private PlaceOrderPage placeOrderPage= new PlaceOrderPage();
 	
-	@Before
-	public void setUp() {
-		DriverSingleton.getInstance(Constants.CHROME);
-		loginPage = new LoginPage();
-		searchPage = new SearchPage();
-		placeOrderPage = new PlaceOrderPage();
-	}
-	
-	@Given("user go to login page web")
-	public void user_go_to_login_page_web() {
-		driver=DriverSingleton.getDriver();
-		driver.get(Constants.LOGINURL);
+	public TestCheckout() {
+		driver=Hooks.driver;
 	}
 	
 	@When("search dress item")
 	public void search_dress_item() {
+		driver=DriverSingleton.getDriver();
+		driver.get(Constants.LOGINURL);
 		scroll(500);
 		loginPage.login("selvia14", "Erbina@14");
 		loginPage.clickLogin();
@@ -47,7 +39,7 @@ public class TestCheckout {
 		searchPage.btnDashboard();
 		searchPage.btnSearch();
 		System.out.println(searchPage.getTittleSearch());
-		searchPage.searchItemSatu("dress");
+		searchPage.searchItem("dress");
 		scroll(400);
 		System.out.println(searchPage.getTxtResult());
 	}
@@ -61,13 +53,13 @@ public class TestCheckout {
 		placeOrderPage.clickBtnAddToCart();
 	}
 	
-	@When("search shirt item")
+	@And("search shirt item")
 	public void search_shirt_item() {
 		searchPage.btnSearch();
 		System.out.println(searchPage.getTittleSearch());
-		searchPage.searchItemSatu("shirt");
+		searchPage.searchItem("shirt");
 		scroll(400);
-		System.out.println(searchPage.getTxtResult());
+		System.out.println(searchPage.getTxtResultDua());
 	}
 	
 	@And("add shirt item")
@@ -79,7 +71,7 @@ public class TestCheckout {
 		placeOrderPage.clickBtnAddToCart();
 	}
 	
-	@When("user filling billing")
+	@And("user filling billing")
 	public void user_filling_billing() {
 		placeOrderPage.clickBtnCart();
 		scroll(900);
@@ -97,20 +89,6 @@ public class TestCheckout {
 	@Then("validate valid scenario")
 	public void validate_valid_scenario() {
 		placeOrderPage.getTxtSuksesOrder();
-	}
-	
-	@After
-	public void closeBrowser() {
-		delay(1);
-		DriverSingleton.closeObjectInstance();
-	}
-	
-	static void delay(int detik) {
-		try {
-			Thread.sleep(1000*detik);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
 	}
 	
 	static void scroll(int vertical) {

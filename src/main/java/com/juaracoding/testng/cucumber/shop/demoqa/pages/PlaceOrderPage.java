@@ -13,7 +13,6 @@ import com.juaracoding.testng.cucumber.shop.demoqa.driver.DriverSingleton;
 public class PlaceOrderPage {
 
 	private WebDriver driver;
-	public static WebDriver driverScroll;
 	
 	public PlaceOrderPage() {
 		this.driver=DriverSingleton.getDriver();
@@ -52,7 +51,10 @@ public class PlaceOrderPage {
 	@FindBy(xpath= "//input[@id='billing_last_name']")
 	private WebElement lastName;
 	
-	@FindBy(xpath="//span[@aria-label='State']//span[@role='presentation']")
+	@FindBy(xpath="//input[@id='billing_company']")
+	private WebElement company;
+	
+	@FindBy(xpath="//span[@id='select2-billing_country-container']")
 	private WebElement textboxCountry;
 	
 	@FindBy(xpath = "//input[@role='combobox']")
@@ -64,7 +66,7 @@ public class PlaceOrderPage {
 	@FindBy(xpath="//input[@id='billing_city']")
 	private WebElement billingCity;
 	
-	@FindBy(xpath="//span[@aria-label='Province']//span[@role='presentation']")
+	@FindBy(xpath="//span[@id='select2-billing_state-container']")
 	private WebElement textboxProvince;
 	
 	@FindBy(xpath = "//input[@role='combobox']")
@@ -127,9 +129,11 @@ public class PlaceOrderPage {
 	}
 	
 	public void formOrder() {
+		JavascriptExecutor js = (JavascriptExecutor)driver;
 		this.firstName.sendKeys("Erbina");
 		this.lastName.sendKeys("Selvia");
-		scroll(400);
+		js.executeScript("window.scrollBy(0,700)");
+		this.company.sendKeys("Juara Coding");
 		textboxCountry.click();
 		this.inputCountry.sendKeys("Indonesia",Keys.ENTER);
 		this.billingAddress.sendKeys("Jl Telekomunikasi");
@@ -138,7 +142,6 @@ public class PlaceOrderPage {
 		this.inputProvince.sendKeys("Jawa Barat",Keys.ENTER);
 		this.kodepos.sendKeys("40111");
 		this.telpon.sendKeys("081260911459");
-		this.billingEmail.sendKeys("selvia14@gmail.com");
 	}
 	
 	public void clickTerm() {
@@ -151,13 +154,11 @@ public class PlaceOrderPage {
 	}
 	
 	public String getTxtSuksesOrder() {
+		JavascriptExecutor js = (JavascriptExecutor)driver;
+		js.executeScript("window.scrollBy(0,400)");
 		return successOrder.getText();
 	}
 	
-	static void scroll(int vertical) {
-		JavascriptExecutor js = (JavascriptExecutor)driverScroll;
-		js.executeScript("window.scrollBy(0,"+vertical+")");
-	}
 	
 	static void delay(int detik) {
 		try {

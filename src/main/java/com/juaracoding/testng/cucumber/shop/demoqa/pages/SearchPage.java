@@ -54,7 +54,7 @@ public class SearchPage {
 		return titleSearch.getText();
 	}
 	
-	public void searchItemSatu(String kata) {
+	public void searchItem(String kata) {
 		delay(1);
 		this.searchInput.sendKeys(kata,Keys.ENTER);
 	}
