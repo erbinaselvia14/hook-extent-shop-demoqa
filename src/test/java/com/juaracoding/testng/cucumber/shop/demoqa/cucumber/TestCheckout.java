@@ -8,6 +8,8 @@ import com.juaracoding.testng.cucumber.shop.demoqa.pages.LoginPage;
 import com.juaracoding.testng.cucumber.shop.demoqa.pages.PlaceOrderPage;
 import com.juaracoding.testng.cucumber.shop.demoqa.pages.SearchPage;
 import com.juaracoding.testng.cucumber.shop.demoqa.utils.Constants;
+import com.relevantcodes.extentreports.ExtentTest;
+import com.relevantcodes.extentreports.LogStatus;
 
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
@@ -22,19 +24,21 @@ public class TestCheckout {
 	private LoginPage loginPage = new LoginPage();
 	private SearchPage searchPage = new SearchPage();
 	private PlaceOrderPage placeOrderPage= new PlaceOrderPage();
+	private static ExtentTest extentTest;
 	
 	public TestCheckout() {
-		driver=Hooks.driver;
+		driver = Hooks.driver;
+		extentTest = Hooks.extentTest;
 	}
 	
 	@When("search dress item")
 	public void search_dress_item() {
 		driver=DriverSingleton.getDriver();
 		driver.get(Constants.LOGINURL);
-		scroll(500);
-		loginPage.login("selvia14", "Erbina@14");
-		loginPage.clickLogin();
-		scroll(400);
+//		scroll(500);
+//		loginPage.login("selvia14", "Erbina@14");
+//		loginPage.clickLogin();
+//		scroll(200);
 		System.out.println(loginPage.validasiLogin());
 		searchPage.btnDashboard();
 		searchPage.btnSearch();
@@ -42,6 +46,7 @@ public class TestCheckout {
 		searchPage.searchItem("dress");
 		scroll(400);
 		System.out.println(searchPage.getTxtResult());
+		extentTest.log(LogStatus.PASS, "search dress item");
 	}
 	
 	@And("add dress item")
@@ -51,6 +56,7 @@ public class TestCheckout {
 		placeOrderPage.pilihColor("White");
 		placeOrderPage.pilihSize("Medium");
 		placeOrderPage.clickBtnAddToCart();
+		extentTest.log(LogStatus.PASS, "add dress item");
 	}
 	
 	@And("search shirt item")
@@ -60,6 +66,7 @@ public class TestCheckout {
 		searchPage.searchItem("shirt");
 		scroll(400);
 		System.out.println(searchPage.getTxtResultDua());
+		extentTest.log(LogStatus.PASS, "search shirt item");
 	}
 	
 	@And("add shirt item")
@@ -69,6 +76,7 @@ public class TestCheckout {
 		placeOrderPage.pilihColor("Pink");
 		placeOrderPage.pilihSize("36");
 		placeOrderPage.clickBtnAddToCart();
+		extentTest.log(LogStatus.PASS, "add shirt item");
 	}
 	
 	@And("user filling billing")
@@ -79,16 +87,19 @@ public class TestCheckout {
 		scroll(400);
 		placeOrderPage.formOrder();
 		placeOrderPage.clickTerm();
+		extentTest.log(LogStatus.PASS, "user filling billing");
 	}
 	
 	@And("user place order")
 	public void user_place_order() {
 		placeOrderPage.placeOrder();
+		extentTest.log(LogStatus.PASS, "user place order");
 	}
 	
 	@Then("validate valid scenario")
 	public void validate_valid_scenario() {
 		placeOrderPage.getTxtSuksesOrder();
+		extentTest.log(LogStatus.PASS, "validate valid scenario");
 	}
 	
 	static void scroll(int vertical) {
